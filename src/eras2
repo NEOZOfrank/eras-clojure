@@ -1,0 +1,46 @@
+(defn primes2 [max]
+  (let [enqueue (fn [sieve n factor]
+                  (let [m (+ n factor)]
+                    (if (sieve m)
+                      (recur sieve m factor)
+                      (assoc sieve m factor))))
+        next-sieve (fn [sieve candidate]
+                     (if-let [factor (sieve candidate)]
+                       (-> sieve
+                         (dissoc candidate)
+                         (enqueue candidate factor))
+                       (enqueue sieve candidate candidate)))]
+    (vals (reduce next-sieve {} (range 2 max))))
+  )
+
+
+let[
+  enqueue (fn..)
+  next-sieve (fn..)
+  ] (...)
+
+
+;assoc hängt am ende oder am index einer collection etwas an, wenn index > collection dann am ende
+;let [x 2 y 3]) x = 2; y = 3
+;The vals function returns a sequence containing all the values in a given map
+
+
+
+
+
+
+(defn primes2 [max]
+  (vals (reduce next-sieve {} (range 2 max))))
+
+(defn next-sieve [sieve candidate]
+  (if-let [factor (sieve candidate)]
+    (-> sieve
+      (dissoc candidate)
+      (enqueue candidate factor))
+    (enqueue sieve candidate candidate)))
+
+(defn enqueue [next-sieve n factor]
+  (let [m (+ n factor)]
+    (if (sieve m)
+      (recur sieve m factor)
+      (assoc sieve m factor))))

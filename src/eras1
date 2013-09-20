@@ -1,0 +1,18 @@
+'StackOverflowError on more than 20000 numbers
+
+(defn sieve [n]
+  (def a (.getTime (new java.util.Date)))
+  (loop [last-tried 2 sift (range 2 (inc n))]
+    (if
+      (or (nil? last-tried) (> last-tried n))
+      sift
+      (let [filtered (filter #(or (= % last-tried) (< 0 (rem % last-tried))) sift)]
+        (let [next-to-try (first (filter #(> % last-tried) filtered))]
+          (recur next-to-try filtered)))))
+
+  (def b (.getTime (new java.util.Date)))
+  (println (- b a) )
+  )
+
+(defn sieveloop [n]
+  (dotimes [_ n] (sieve 20000)))
